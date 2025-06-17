@@ -1,0 +1,279 @@
+/* Wordle Game Styles */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+  background-color: #121213;
+  color: #ffffff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+#root {
+  width: 100%;
+  max-width: 500px;
+}
+
+.app {
+  text-align: center;
+}
+
+.header {
+  margin-bottom: 30px;
+}
+
+.title {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #ffffff;
+  margin-bottom: 10px;
+  letter-spacing: 2px;
+}
+
+.subtitle {
+  color: #818384;
+  font-size: 1rem;
+}
+
+/* Game Board */
+.game-board {
+  display: grid;
+  grid-template-rows: repeat(6, 1fr);
+  gap: 5px;
+  margin-bottom: 30px;
+  padding: 10px;
+}
+
+.board-row {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 5px;
+}
+
+.tile {
+  width: 62px;
+  height: 62px;
+  border: 2px solid #3a3a3c;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  transition: all 0.2s ease-in-out;
+  user-select: none;
+}
+
+.tile.filled {
+  border-color: #565758;
+  animation: pop 0.1s ease-in-out;
+}
+
+.tile.correct {
+  background-color: #6aaa64;
+  border-color: #6aaa64;
+  color: white;
+  animation: flip 0.6s ease-in-out;
+}
+
+.tile.present {
+  background-color: #c9b458;
+  border-color: #c9b458;
+  color: white;
+  animation: flip 0.6s ease-in-out;
+}
+
+.tile.absent {
+  background-color: #787c7e;
+  border-color: #787c7e;
+  color: white;
+  animation: flip 0.6s ease-in-out;
+}
+
+@keyframes pop {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
+
+@keyframes flip {
+  0% { transform: rotateX(0); }
+  50% { transform: rotateX(90deg); }
+  100% { transform: rotateX(0); }
+}
+
+/* Keyboard */
+.keyboard {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.keyboard-row {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+}
+
+.key {
+  min-width: 43px;
+  height: 58px;
+  border: none;
+  border-radius: 4px;
+  background-color: #818384;
+  color: white;
+  font-size: 1.2rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.1s ease-in-out;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-transform: uppercase;
+  user-select: none;
+}
+
+.key:hover {
+  opacity: 0.8;
+}
+
+.key:active {
+  transform: scale(0.95);
+}
+
+.key.wide {
+  min-width: 65px;
+  font-size: 1rem;
+}
+
+.key.correct {
+  background-color: #6aaa64;
+}
+
+.key.present {
+  background-color: #c9b458;
+}
+
+.key.absent {
+  background-color: #3a3a3c;
+}
+
+/* Game Messages */
+.game-message {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #ffffff;
+  color: #121213;
+  padding: 20px 30px;
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  z-index: 1000;
+  text-align: center;
+  min-width: 300px;
+}
+
+.game-message h2 {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+}
+
+.game-message p {
+  margin-bottom: 15px;
+  font-size: 1.1rem;
+}
+
+.game-message .target-word {
+  font-weight: bold;
+  color: #6aaa64;
+  font-size: 1.3rem;
+  margin: 10px 0;
+}
+
+.play-again-btn {
+  background-color: #6aaa64;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.play-again-btn:hover {
+  background-color: #5a9a54;
+}
+
+/* Invalid Word Message */
+.invalid-word {
+  position: fixed;
+  top: 20%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #f44336;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 4px;
+  z-index: 1000;
+  animation: shake 0.5s ease-in-out;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(-50%); }
+  25% { transform: translateX(-55%); }
+  75% { transform: translateX(-45%); }
+}
+
+/* Responsive Design */
+@media (max-width: 480px) {
+  .tile {
+    width: 50px;
+    height: 50px;
+    font-size: 1.5rem;
+  }
+
+  .key {
+    min-width: 35px;
+    height: 48px;
+    font-size: 1rem;
+  }
+
+  .key.wide {
+    min-width: 55px;
+    font-size: 0.8rem;
+  }
+
+  .title {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 360px) {
+  .tile {
+    width: 45px;
+    height: 45px;
+    font-size: 1.3rem;
+  }
+
+  .key {
+    min-width: 32px;
+    height: 42px;
+    font-size: 0.9rem;
+  }
+
+  .key.wide {
+    min-width: 50px;
+    font-size: 0.7rem;
+  }
+}
